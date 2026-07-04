@@ -1,0 +1,15 @@
+# Credentials & Secrets (CRITICAL)
+.env
+
+# Python Caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+# Local Watchlist Cache
+.cache/
+
+# Streamlit configuration
+.streamlit/
