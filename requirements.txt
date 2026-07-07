@@ -4,3 +4,8 @@ pandas
 pyotp
 python-dotenv
 plotly
+pyjwt
+websockets
+bidict
+pyjsparser
+https://github.com/Kotak-Neo/Kotak-neo-api-v2/archive/refs/tags/v2.0.2.zip
