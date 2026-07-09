@@ -99,16 +99,41 @@ def load_index_from_nse(name, url):
     # Return fallback if exists, else return empty list
     return FALLBACK_WATCHLISTS.get(name, FALLBACK_WATCHLISTS["Nifty 50 (Top Liquid)"])
 
-# Watchlists dict containing dynamic and static lists
+# Available watchlist names for UI rendering
+AVAILABLE_WATCHLISTS = [
+    "Nifty 50 (Top Liquid)",
+    "Nifty 100",
+    "Nifty 200",
+    "Nifty IT",
+    "Nifty Bank"
+]
+
+# Watchlists cache
 WATCHLISTS = {}
 
-# Load lists (runs on import, but uses local cache if fresh to prevent delay)
-for name, url in NSE_URLS.items():
-    WATCHLISTS[name] = load_index_from_nse(name, url)
-
-# Add static fallbacks that don't have direct NSE URLs in our dictionary
+# Pre-populate static watchlists
 WATCHLISTS["Nifty IT"] = FALLBACK_WATCHLISTS["Nifty IT"]
 WATCHLISTS["Nifty Bank"] = FALLBACK_WATCHLISTS["Nifty Bank"]
+
+def get_watchlist(name):
+    """
+    Lazily retrieves the constituent list for a given index.
+    Downloads from NSE (or loads from local cache) only when requested.
+    """
+    if name in WATCHLISTS:
+        return WATCHLISTS[name]
+        
+    if name in NSE_URLS:
+        url = NSE_URLS[name]
+        symbols = load_index_from_nse(name, url)
+        WATCHLISTS[name] = symbols
+        return symbols
+        
+    if name in FALLBACK_WATCHLISTS:
+        WATCHLISTS[name] = FALLBACK_WATCHLISTS[name]
+        return FALLBACK_WATCHLISTS[name]
+        
+    return FALLBACK_WATCHLISTS["Nifty 50 (Top Liquid)"]
 
 def get_clean_symbol(yfinance_ticker):
     """
