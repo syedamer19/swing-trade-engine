@@ -207,7 +207,7 @@ with tab1:
     
     col_sc1, col_sc2, col_sc3 = st.columns([2, 2, 1])
     with col_sc1:
-        watchlist = st.selectbox("Select Watchlist", list(config.WATCHLISTS.keys()))
+        watchlist = st.selectbox("Select Watchlist", config.AVAILABLE_WATCHLISTS)
     with col_sc2:
         strategies_selected = st.multiselect(
             "Strategies to Run", 
