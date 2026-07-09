@@ -147,7 +147,7 @@ def run_scanner(watchlist_name, kotak_session=None, max_workers=10):
     """
     Runs the swing scanner on a selected watchlist using concurrency.
     """
-    tickers = config.WATCHLISTS.get(watchlist_name, [])
+    tickers = config.get_watchlist(watchlist_name)
     if not tickers:
         logger.error(f"Watchlist {watchlist_name} not found or empty.")
         return []
